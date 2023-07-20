@@ -1,0 +1,29 @@
+{
+    "name": "TV AirDates",
+    "version": "1.0",
+    "description": "Check weekly episode release dates for your favourite shows",
+    "manifest_version": 3,
+    "author": "Elias Tokola",
+    "icons": {
+        "16": "icons/icon_16.png",
+        "48": "icons/icon_48.png",
+        "128": "icons/icon_128.png"
+    },
+    "action": {
+        "default_icon": {
+            "16": "icons/icon_16.png",
+            "48": "icons/icon_48.png",
+            "128": "icons/icon_128.png"
+        },
+        "default_popup": "index.html",
+        "default_title": "TV AirDates"
+    },
+    "content_scripts": [
+        {
+          "css": ["styles.css"]
+        }
+    ],
+    "permissions": [
+        "storage"
+    ]
+}
