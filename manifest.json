@@ -20,10 +20,9 @@
     },
     "content_scripts": [
         {
-          "css": ["styles.css"]
+            "matches": ["<all_urls>"],
+            "css": ["styles.css"],
+            "js": ["js/api_handler.js", "js/calendar_handler.js", "js/search_handler.js", "js/mylist_handler.js"]
         }
-    ],
-    "permissions": [
-        "storage"
     ]
 }

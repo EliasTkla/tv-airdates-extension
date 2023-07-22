@@ -31,7 +31,7 @@ function myShowList() {
         
         //checks if user saved a link for the show
         if(i[1] === "#"){
-          inp.placeholder = "Link to watch...";
+          inp.placeholder = "Watch link... (Enter to save)";
         } else {
           inp.value = i[1];
         }
