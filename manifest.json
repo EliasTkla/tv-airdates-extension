@@ -17,12 +17,5 @@
         },
         "default_popup": "index.html",
         "default_title": "TV AirDates"
-    },
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "css": ["styles.css"],
-            "js": ["js/api_handler.js", "js/calendar_handler.js", "js/search_handler.js", "js/mylist_handler.js"]
-        }
-    ]
+    }
 }

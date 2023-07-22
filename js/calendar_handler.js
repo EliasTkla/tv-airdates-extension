@@ -33,6 +33,7 @@ function getShows() {
     var shows = JSON.parse(localStorage.getItem("weekShows"));
 
     if(shows != null){
+      document.getElementById("loader").style.display = "none";
       var date1 = shows[dayIndex].date
       var weekDay = days[dayNum];
       console.log(weekDay);

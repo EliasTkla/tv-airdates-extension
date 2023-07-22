@@ -15,6 +15,8 @@ document.body.onload = loadAirDate = async () => {
 
     //checks if data wasn't stored already or if its a new day
     if(shows === null || date.getDay() != day){
+        document.getElementById("loader").style.display = "block";
+
         try {
         const response = await fetch(url, options);
         const result = await response.text();
@@ -26,6 +28,7 @@ document.body.onload = loadAirDate = async () => {
         localStorage.setItem("weekShows", JSON.stringify(shows));
         localStorage.setItem("sessionDay", date.getDay());
 
+        document.getElementById("loader").style.display = "none";
         getShows();
         } catch (error) {
         console.error(error);
