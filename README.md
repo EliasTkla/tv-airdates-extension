@@ -1,6 +1,8 @@
 # Chrome Extension #
 
   Track weekly episode release dates for your ongoing shows.
+  
+  [Chrome Extension Link](https://chrome.google.com/webstore/detail/tv-airdates/pegfnncdbodipklafkjmpfebcdcglhdc?utm_source=ext_app_menu)
 
 ## Required ##
 
