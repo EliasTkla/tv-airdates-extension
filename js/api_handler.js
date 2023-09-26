@@ -3,7 +3,7 @@ const url = 'https://show-air-dates.p.rapidapi.com/next7days';
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '62e74ef50fmsh422a925295de4b0p177217jsne32c48befabe',
+		'X-RapidAPI-Key': '#',
 		'X-RapidAPI-Host': 'show-air-dates.p.rapidapi.com'
 	}
 };
