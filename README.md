@@ -1,11 +1,11 @@
 # Chrome Extension #
 
   Track weekly episode release dates for your ongoing shows.
-
+  
 ## Required ##
 
   
-  API - https://rapidapi.com/ymfh/api/show-air-dates/
+  API - 
   
 ## Overview ##
 
