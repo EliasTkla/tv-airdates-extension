@@ -5,7 +5,7 @@
 ## Required ##
 
   
-  API - 
+  API - https://www.tvmaze.com/api
   
 ## Overview ##
 
