@@ -1,6 +1,6 @@
 var currentPage = "calendar";
 var dayIndex = 0;
-var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 var date = new Date();
 var dayNum = date.getDay();
@@ -13,6 +13,7 @@ document.getElementById("toggle-page").onclick = function () {
         document.getElementById("toggle-page").style.background = "url('/icons/calendar.svg') no-repeat center center / cover";
         document.getElementById("clear-search").style.display = "none";
         input.value = "";
+
         currentPage = "search";
         myShowList();
     } else {
@@ -21,55 +22,106 @@ document.getElementById("toggle-page").onclick = function () {
         document.getElementById("toggle-page").style.background = "url('/icons/list.svg') no-repeat center center / cover";
         document.getElementById("searchbar").value = "";
         document.getElementById("result-container").style.display = "none";
+
         currentPage = "calendar";
         dayIndex = 0;
-        dayNum = date.getDay();
         getShows();
     }
 }
 
 // called to set all show information within calendar
-function getShows() {
-    var shows = JSON.parse(localStorage.getItem("weekShows"));
+async function getShows() {
+    document.getElementById("loader").style.display = "none";
 
-    if (shows != null) {
-        document.getElementById("loader").style.display = "none";
-        var date1 = shows[dayIndex].date
-        var weekDay = days[dayNum];
-        var month = months[Number(date1.slice(4, 6)) - 1];
-        var day = date1.slice(6, 8)
-        var list = JSON.parse(localStorage.getItem("myShows"));
+    document.getElementById("calendar-date").innerHTML = days[dayNum] + ' ' + months[date.getMonth()] + ' ' + (date.getDate() + dayIndex);
 
-        document.getElementById("calendar-date").innerHTML = "";
-        document.getElementById("calendar-date").innerHTML += weekDay + ' ' + month + ' ' + day;
+    var list = JSON.parse(localStorage.getItem("myShows"));
+    var shwList = document.getElementById('show-list');
 
-        document.getElementById('show-list').innerHTML = "";
+    if (!list) {
+        shwList.innerHTML = '<li>No Saved Shows</li>';
+    } else {
+        document.getElementById('show-list').innerHTML = null;
 
-        var shwList = document.getElementById('show-list');
-        var empty = true;
+        for (l of list) {
+            if (l[2] === days[dayNum]) {
+                var time = l[3].split(":");
+                var hours = Number(time[0]);
+                var minutes = Number(time[1]);
+                var period = "am";
 
-        for (show of shows[dayIndex].shows) {
-            //if user has no personal list, display all airing shows
-            if (list === null || !list.length) {
-                shwList.innerHTML += '<li>' + show.name + '<br/>Season ' + show.saison + ' - Episode ' + show.episode + '</li>';
-            } else {
-                for (l of list) {
-                    if (l[0].includes(show.name)) {
-                        empty = false;
-                        if (l[1] === "#") {
-                            shwList.innerHTML += '<li>' + show.name + '<br/>Season ' + show.saison + ' - Episode ' + show.episode + '</li>';
-                        } else {
-                            shwList.innerHTML += '<li>' + show.name + '<a href="' + l[1] + '" target="_blank"></a><br/>Season ' + show.saison + ' - Episode ' + show.episode + '</li>';
-                        }
-                    }
+                if (hours === 0) {
+                    hours = 12;
+                } else if (hours === 12) {
+                    period = "pm";
+                } else if (hours > 12) {
+                    hours = hours - 12;
+                    period = "pm";
+                }
+
+                if (minutes < 10) {
+                    minutes = '0' + minutes;
+                }
+
+                var episode = await checkLatestEpisode(l[0], (date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + ((date.getDate() + dayIndex) < 10 ? '0' + (date.getDate() + dayIndex) : (date.getDate() + dayIndex))))
+
+                if (l[4] === "#") {
+                    shwList.innerHTML += '<li>' + '<p>' + (hours + ':' + minutes + ' ' + period) + ' - ' + l[1] + '</p>' + '<br/>Season ' + episode[0] + ' - Episode ' + episode[1] + '</li>';
+                } else {
+                    shwList.innerHTML += '<li>' + '<p>' + (hours + ':' + minutes + ' ' + period) + ' - ' + l[1] + '</p>' + '<a href="' + l[4] + '" target="_blank"></a><br/>Season ' + episode[0] + ' - Episode ' + episode[1] + '</li>';
                 }
             }
         }
 
-        //if no shows air on a day
-        if (empty) {
-            shwList.innerHTML += '<li>No New Episodes</li>';
+        if (shwList.innerHTML === "") {
+            shwList.innerHTML = '<li>No New Episodes</li>';
         }
+    }
+}
+
+async function checkLatestEpisode(id, date) {
+    var latest = JSON.parse(localStorage.getItem("latestEpisodes"));
+
+    if (!latest) {
+        latest = [];
+        localStorage.setItem("currentDate", new Date().toDateString());
+        return await fetchLatestEpisode(id, date, latest);
+    } else {
+        var lastDate = localStorage.getItem("currentDate");
+
+        if (lastDate === new Date().toDateString()) {
+            for (i of latest) {
+                if (i[0] === id) {
+                    return [i[1], i[2]];
+                }
+            }
+        }
+
+        return await fetchLatestEpisode(id, date, latest);
+    }
+}
+
+async function fetchLatestEpisode(id, date, latest) {
+    try {
+        const response = await fetch('https://api.tvmaze.com/shows/' + id + '/episodesbydate?date=' + date);
+        const result = await response.json();
+
+        if (response.status == 404) {
+            throw new Error("Something went wrong!");
+        }
+
+        latest.push([id, result[0].season, result[0].number]);
+
+        localStorage.setItem("latestEpisodes", JSON.stringify(latest));
+
+        return [result[0].season, result[0].number];
+    } catch (error) {
+        console.log(error);
+
+        latest.push([id, 'n/a', 'n/a']);
+        localStorage.setItem("latestEpisodes", JSON.stringify(latest));
+
+        return ['n/a', 'n/a'];
     }
 }
 

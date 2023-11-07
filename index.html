@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>TV AirDates</title>
-</head>
-<body>
-    <div id="airdate-container" >
-        <!-- navigation between calendar page and personal list manager -->
-        <div id="menu-container">
-            <img id="logo" src="icons/icon_16.png" />
-            <h1>TV AirDates</h1>
-            <button id="toggle-page"></button>
-        </div>
-        
-        <!-- display calendar schedule on calendar page -->
-        <div id="show-calendar">
-            <!-- navigation between different days of the week -->
-            <div>
-                <button id="left-arrow"><img src="icons/arrow-left.svg" draggable="false"/></button>
-                <h3 id="calendar-date"></h3>
-                <button id="right-arrow"><img src="icons/arrow-right.svg" draggable="false" /></button>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>TV AirDates</title>
+    </head>
+
+    <body>
+        <div id="airdate-container">
+            <!-- navigation between calendar page and personal list manager -->
+            <div id="menu-container">
+                <img id="logo" src="icons/icon_16.png" />
+                <h1>TV AirDates</h1>
+                <button id="toggle-page"></button>
             </div>
 
-            <!-- lists shows airing episodes for a day -->
-            <ul id="show-list">
-            </ul>
+            <!-- display calendar schedule on calendar page -->
+            <div id="show-calendar">
+                <!-- navigation between different days of the week -->
+                <div>
+                    <button id="left-arrow"><img src="icons/arrow-left.svg" draggable="false" /></button>
+                    <h3 id="calendar-date"></h3>
+                    <button id="right-arrow"><img src="icons/arrow-right.svg" draggable="false" /></button>
+                </div>
 
-            <span id="loader"></span>
-        </div>
+                <!-- lists shows airing episodes for a day -->
+                <ul id="show-list">
+                </ul>
 
-        <div id="search-container">
-            <!-- input to search through shows obtained from the api -->
-            <input id="searchbar" type="text" placeholder="Search for shows...">
-            <button id="clear-search"></button>
+                <span id="loader"></span>
+            </div>
 
-            <div id="result-container">
-                <!-- list of search results containing their save condition -->
-                <ul id="search-results">
+            <div id="search-container">
+                <!-- input to search through shows obtained from the api -->
+                <input id="searchbar" type="text" placeholder="Search for shows...">
+                <button id="clear-search"></button>
+
+                <div id="result-container">
+                    <!-- list of search results containing their save condition -->
+                    <ul id="search-results">
+                    </ul>
+                </div>
+
+                <p>- My Shows -</p>
+
+                <!-- list displaying shows saved by user -->
+                <ul id="saved-shows">
                 </ul>
             </div>
-
-            <p>- My Shows -</p>
-            
-            <!-- list displaying shows saved by user -->
-            <ul id="saved-shows">
-            </ul>
+            <a id="api-credit-link" href="https://www.tvmaze.com/" target="_blank">TVmaze</a>
         </div>
-    </div>
-</body>
-<script src="js/api_handler.js"></script>
-<script src="js/calendar_handler.js"></script>
-<script src="js/search_handler.js"></script>
-<script src="js/mylist_handler.js"></script>
+    </body>
+    <!-- <script src="js/api_handler.js"></script> -->
+    <script src="js/calendar_handler.js"></script>
+    <script src="js/search_handler.js"></script>
+    <script src="js/mylist_handler.js"></script>
+
 </html>

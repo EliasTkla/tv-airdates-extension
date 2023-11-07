@@ -13,7 +13,7 @@ ul {
     padding: 0;
     overflow-y: scroll;
     -ms-overflow-style: none;
-    scrollbar-width: none; 
+    scrollbar-width: none;
     border: 1px solid lightgray;
     background-color: white;
 }
@@ -59,11 +59,11 @@ li {
 }
 
 #menu-container button {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     margin-right: 10px;
     border: none;
-    background: url("/icons/list.svg") no-repeat center center / cover;
+    background: url("/icons/list.svg") no-repeat center / cover;
     cursor: pointer;
 }
 
@@ -106,6 +106,15 @@ li {
     cursor: pointer;
 }
 
+#show-list p {
+    width: 225px;
+    margin: 0;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #show-list a {
     width: 20px;
     height: 20px;
@@ -142,7 +151,7 @@ li {
     height: 20px;
     top: 80px;
     left: 303px;
-    position: fixed;
+    position: absolute;
     border: none;
     background: url("/icons/delete.svg") no-repeat center center / cover;
     cursor: pointer;
@@ -152,7 +161,7 @@ li {
     width: 350px;
     height: fit-content;
     margin: -10px auto;
-    position: fixed;
+    position: absolute;
     display: none;
 }
 
@@ -197,11 +206,23 @@ li {
     border-top-color: #ff9900ff;
     animation: spin 1s ease-in-out infinite;
     -webkit-animation: spin 1s ease-in-out infinite;
-  }
-  
-  @keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-  }
-  @-webkit-keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-  }
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+#api-credit-link {
+    position: absolute;
+    top: 480px;
+    left: 275px;
+    color: #3D948B;
+}
