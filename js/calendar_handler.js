@@ -101,6 +101,7 @@ async function checkLatestEpisode(id, date) {
     }
 }
 
+// TODO !! find another api to fetch episode data in case of empty returns
 async function fetchLatestEpisode(id, date, latest) {
     try {
         const response = await fetch('https://api.tvmaze.com/shows/' + id + '/episodesbydate?date=' + date);
